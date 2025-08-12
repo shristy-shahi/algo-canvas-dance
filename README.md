@@ -48,7 +48,7 @@ npm install
 # Run locally
 npm run dev
 
-
+'''bash
 
 ## 🎮 How to Use
 
