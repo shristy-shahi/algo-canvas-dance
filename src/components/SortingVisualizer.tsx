@@ -156,34 +156,42 @@ export const SortingVisualizer: React.FC = () => {
   const selectedAlgoInfo = algorithms.find(algo => algo.value === selectedAlgorithm);
 
   return (
-    <div className="min-h-screen bg-background p-6">
-      <div className="max-w-7xl mx-auto space-y-8">
-        {/* Header */}
-        <div className="text-center space-y-4">
-          <h1 className="text-4xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+    <div className="min-h-screen bg-background p-6 relative overflow-hidden">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }}></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto space-y-8 relative z-10">
+        {/* Enhanced Header */}
+        <div className="text-center space-y-6 animate-entrance">
+          <h1 className="gradient-title">
             Sorting Algorithm Visualizer
           </h1>
-          <p className="text-lg text-muted-foreground">
-            Watch how different sorting algorithms work in real-time
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            Watch how different sorting algorithms work in real-time with beautiful animations and performance metrics
           </p>
         </div>
 
-        {/* Controls */}
-        <div className="glass-panel p-6 animate-slide-up">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-            {/* Algorithm Selection */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-foreground">Algorithm</label>
+        {/* Enhanced Controls */}
+        <div className="glass-panel p-8 animate-slide-up" style={{ animationDelay: '0.2s' }}>
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            {/* Enhanced Algorithm Selection */}
+            <div className="space-y-3">
+              <label className="text-sm font-semibold text-foreground uppercase tracking-wider">
+                Algorithm
+              </label>
               <Select value={selectedAlgorithm} onValueChange={setSelectedAlgorithm}>
-                <SelectTrigger className="bg-card/20 border-border/50">
+                <SelectTrigger className="glass-panel border-border/30 h-12 text-base">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="glass-panel border-border/30">
                   {algorithms.map((algo) => (
-                    <SelectItem key={algo.value} value={algo.value}>
-                      <div className="flex flex-col">
-                        <span>{algo.label}</span>
-                        <span className="text-xs text-muted-foreground">{algo.complexity}</span>
+                    <SelectItem key={algo.value} value={algo.value} className="cursor-pointer">
+                      <div className="flex flex-col space-y-1 py-1">
+                        <span className="font-medium">{algo.label}</span>
+                        <span className="text-xs text-accent font-mono">{algo.complexity}</span>
                       </div>
                     </SelectItem>
                   ))}
@@ -191,84 +199,129 @@ export const SortingVisualizer: React.FC = () => {
               </Select>
             </div>
 
-            {/* Array Size */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-foreground">
-                Array Size: {arraySize[0]}
+            {/* Enhanced Array Size */}
+            <div className="space-y-3">
+              <label className="text-sm font-semibold text-foreground uppercase tracking-wider">
+                Array Size: <span className="text-primary font-mono">{arraySize[0]}</span>
               </label>
-              <Slider
-                value={arraySize}
-                onValueChange={setArraySize}
-                min={10}
-                max={100}
-                step={5}
-                className="w-full"
-                disabled={isPlaying}
-              />
+              <div className="enhanced-slider">
+                <Slider
+                  value={arraySize}
+                  onValueChange={setArraySize}
+                  min={10}
+                  max={100}
+                  step={5}
+                  className="w-full"
+                  disabled={isPlaying}
+                />
+              </div>
             </div>
 
-            {/* Speed */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-foreground">
-                Speed: {speed[0]}%
+            {/* Enhanced Speed */}
+            <div className="space-y-3">
+              <label className="text-sm font-semibold text-foreground uppercase tracking-wider">
+                Speed: <span className="text-accent font-mono">{speed[0]}%</span>
               </label>
-              <Slider
-                value={speed}
-                onValueChange={setSpeed}
-                min={1}
-                max={100}
-                step={1}
-                className="w-full"
-              />
+              <div className="enhanced-slider">
+                <Slider
+                  value={speed}
+                  onValueChange={setSpeed}
+                  min={1}
+                  max={100}
+                  step={1}
+                  className="w-full"
+                />
+              </div>
             </div>
 
-            {/* Controls */}
-            <div className="flex gap-3">
+            {/* Enhanced Controls */}
+            <div className="flex flex-col gap-3">
               <Button 
                 onClick={handleSort}
-                className="btn-control flex-1"
+                className="btn-control h-12 text-base font-semibold"
                 disabled={false}
               >
                 {getButtonIcon()}
-                {getButtonText()}
+                <span className="ml-2">{getButtonText()}</span>
               </Button>
               <Button 
                 onClick={handleReset}
-                className="btn-control secondary"
+                className="btn-control secondary h-10"
                 disabled={isPlaying}
               >
-                <RotateCcw className="w-5 h-5" />
-                Reset
+                <RotateCcw className="w-4 h-4" />
+                <span className="ml-2">Reset</span>
               </Button>
             </div>
           </div>
 
-          {/* Algorithm Info */}
+          {/* Enhanced Algorithm Info */}
           {selectedAlgoInfo && (
-            <div className="mt-4 p-3 bg-card/10 rounded-lg border border-border/30">
+            <div className="mt-8 algo-info animate-fade-in">
               <div className="flex items-center justify-between">
-                <span className="font-medium text-foreground">{selectedAlgoInfo.label}</span>
-                <span className="text-sm font-mono text-accent">{selectedAlgoInfo.complexity}</span>
+                <div className="flex items-center space-x-3">
+                  <div className="w-3 h-3 rounded-full bg-primary animate-pulse-glow"></div>
+                  <span className="font-semibold text-foreground text-lg">{selectedAlgoInfo.label}</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <span className="text-sm text-muted-foreground">Time Complexity:</span>
+                  <span className="text-lg font-mono text-accent font-bold">{selectedAlgoInfo.complexity}</span>
+                </div>
               </div>
             </div>
           )}
         </div>
 
-        {/* Performance Metrics */}
-        <PerformanceMetrics metrics={metrics} />
+        {/* Enhanced Performance Metrics */}
+        <div className="animate-slide-up" style={{ animationDelay: '0.4s' }}>
+          <PerformanceMetrics metrics={metrics} />
+        </div>
 
-        {/* Visualization */}
-        <div className="glass-panel p-6 animate-fade-in">
-          <div className="h-96 flex items-end justify-center gap-1 overflow-hidden">
-            {array.map((element) => (
-              <ArrayBar
-                key={element.id}
-                value={element.value}
-                maxValue={400}
-                state={element.state}
-                width={Math.max(6, Math.floor((800 - array.length * 2) / array.length))}
-              />
-            ))}
+        {/* Enhanced Visualization */}
+        <div className="glass-panel p-8 animate-fade-in relative" style={{ animationDelay: '0.6s' }}>
+          {/* Visualization Header */}
+          <div className="mb-6 text-center">
+            <h2 className="text-2xl font-bold text-foreground mb-2">Live Sorting Visualization</h2>
+            <div className="flex justify-center space-x-6 text-sm">
+              <div className="flex items-center space-x-2">
+                <div className="w-3 h-3 rounded vis-bar comparing"></div>
+                <span className="text-muted-foreground">Comparing</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <div className="w-3 h-3 rounded vis-bar swapping"></div>
+                <span className="text-muted-foreground">Swapping</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <div className="w-3 h-3 rounded vis-bar pivot"></div>
+                <span className="text-muted-foreground">Pivot</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <div className="w-3 h-3 rounded vis-bar sorted"></div>
+                <span className="text-muted-foreground">Sorted</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Visualization Container */}
+          <div className="relative">
+            <div className="h-96 flex items-end justify-center gap-1 overflow-hidden 
+                          bg-gradient-to-t from-background/50 to-transparent 
+                          rounded-lg p-4 border border-border/20">
+              {array.map((element, index) => (
+                <ArrayBar
+                  key={element.id}
+                  value={element.value}
+                  maxValue={400}
+                  state={element.state}
+                  width={Math.max(6, Math.floor((800 - array.length * 2) / array.length))}
+                />
+              ))}
+            </div>
+            
+            {/* Array size indicator */}
+            <div className="absolute bottom-2 right-4 text-xs text-muted-foreground font-mono">
+              {array.length} elements
+            </div>
           </div>
         </div>
       </div>

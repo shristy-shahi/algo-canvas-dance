@@ -54,23 +54,28 @@ All colors MUST be HSL.
     --bar-sorted: 150 85% 60%;
     --bar-pivot: 280 85% 65%;
 
-    /* Gradients */
+    /* Enhanced Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(var(--algo-blue)), hsl(var(--algo-purple)));
     --gradient-bar: linear-gradient(180deg, hsl(var(--bar-default)), hsl(var(--bar-default) / 0.7));
     --gradient-comparing: linear-gradient(180deg, hsl(var(--bar-comparing)), hsl(var(--bar-comparing) / 0.8));
     --gradient-swapping: linear-gradient(180deg, hsl(var(--bar-swapping)), hsl(var(--bar-swapping) / 0.8));
     --gradient-sorted: linear-gradient(180deg, hsl(var(--bar-sorted)), hsl(var(--bar-sorted) / 0.8));
-    --gradient-glass: linear-gradient(135deg, hsl(var(--card) / 0.1), hsl(var(--card) / 0.05));
+    --gradient-glass: linear-gradient(135deg, hsl(var(--card) / 0.15), hsl(var(--card) / 0.05));
+    --gradient-control: linear-gradient(135deg, hsl(var(--primary) / 0.1), hsl(var(--accent) / 0.1));
+    --gradient-metric: linear-gradient(135deg, hsl(var(--algo-blue) / 0.1), hsl(var(--algo-purple) / 0.1));
 
-    /* Shadows & Effects */
-    --shadow-glow: 0 0 20px hsl(var(--primary) / 0.3);
+    /* Enhanced Shadows & Effects */
+    --shadow-glow: 0 0 20px hsl(var(--primary) / 0.4);
     --shadow-bar: 0 4px 12px hsl(var(--background) / 0.3);
-    --shadow-glass: 0 8px 32px hsl(var(--background) / 0.2);
+    --shadow-glass: 0 8px 32px hsl(var(--background) / 0.3);
+    --shadow-control: 0 4px 20px hsl(var(--primary) / 0.2);
+    --shadow-hover: 0 8px 25px hsl(var(--primary) / 0.3);
 
-    /* Transitions */
-    --transition-bar: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-smooth: all 0.2s ease-out;
-    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    /* Advanced Transitions */
+    --transition-bar: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.3s ease-out;
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-elastic: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
     --sidebar-background: 0 0% 98%;
 
@@ -139,80 +144,225 @@ All colors MUST be HSL.
 }
 
 @layer components {
-  /* Glass Panel Effect */
+  /* Enhanced Glass Panel Effect */
   .glass-panel {
-    @apply bg-card/10 backdrop-blur-lg border border-border/50 rounded-lg;
-    box-shadow: var(--shadow-glass);
+    @apply backdrop-blur-xl border border-border/30 rounded-xl relative overflow-hidden;
+    background: var(--gradient-glass);
+    box-shadow: var(--shadow-glass), inset 0 1px 0 hsl(var(--foreground) / 0.1);
+    transition: var(--transition-smooth);
   }
 
-  /* Visualization Bar Styles */
+  .glass-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.5), transparent);
+  }
+
+  .glass-panel:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover), inset 0 1px 0 hsl(var(--foreground) / 0.15);
+  }
+
+  /* Enhanced Visualization Bar Styles */
   .vis-bar {
-    @apply transition-all duration-300 rounded-t-sm cursor-pointer;
+    @apply relative cursor-pointer origin-bottom;
     background: var(--gradient-bar);
     box-shadow: var(--shadow-bar);
     transition: var(--transition-bar);
+    border-radius: 4px 4px 0 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .vis-bar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, hsl(var(--foreground) / 0.3), transparent);
+    opacity: 0;
+    transition: var(--transition-smooth);
+  }
+
+  .vis-bar:hover::before {
+    opacity: 1;
   }
 
   .vis-bar.comparing {
     background: var(--gradient-comparing);
-    box-shadow: 0 0 12px hsl(var(--bar-comparing) / 0.6);
-    transform: scale(1.05);
+    box-shadow: 0 0 20px hsl(var(--bar-comparing) / 0.6), 0 0 40px hsl(var(--bar-comparing) / 0.3);
+    transform: scale(1.05) translateY(-2px);
+    animation: pulse-glow 1s ease-in-out infinite;
   }
 
   .vis-bar.swapping {
     background: var(--gradient-swapping);
-    box-shadow: 0 0 12px hsl(var(--bar-swapping) / 0.6);
-    transform: scale(1.1);
+    box-shadow: 0 0 25px hsl(var(--bar-swapping) / 0.8), 0 0 50px hsl(var(--bar-swapping) / 0.4);
+    transform: scale(1.1) translateY(-4px);
+    animation: shake 0.6s ease-in-out;
   }
 
   .vis-bar.sorted {
     background: var(--gradient-sorted);
-    box-shadow: 0 0 8px hsl(var(--bar-sorted) / 0.4);
+    box-shadow: 0 0 15px hsl(var(--bar-sorted) / 0.5);
+    animation: celebrate 0.8s ease-out;
   }
 
   .vis-bar.pivot {
     background: linear-gradient(180deg, hsl(var(--bar-pivot)), hsl(var(--bar-pivot) / 0.8));
-    box-shadow: 0 0 16px hsl(var(--bar-pivot) / 0.8);
-    transform: scale(1.08);
+    box-shadow: 0 0 30px hsl(var(--bar-pivot) / 0.8), 0 0 60px hsl(var(--bar-pivot) / 0.4);
+    transform: scale(1.08) translateY(-3px);
+    animation: pivot-glow 2s ease-in-out infinite;
   }
 
-  /* Control Button Variants */
+  /* Enhanced Control Button Variants */
   .btn-algo {
-    @apply px-4 py-2 rounded-lg border transition-all duration-200;
-    @apply bg-card/20 border-border/50 text-foreground;
-    @apply hover:bg-primary/10 hover:border-primary/50 hover:text-primary;
-    @apply active:scale-95;
+    @apply px-4 py-3 rounded-xl border relative overflow-hidden;
+    @apply bg-card/20 border-border/30 text-foreground;
+    @apply hover:border-primary/50 hover:text-primary;
+    transition: var(--transition-bounce);
+    background: var(--gradient-control);
+  }
+
+  .btn-algo::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.1), transparent);
+    transition: var(--transition-smooth);
+  }
+
+  .btn-algo:hover::before {
+    left: 100%;
+  }
+
+  .btn-algo:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-control);
   }
 
   .btn-algo.active {
-    @apply bg-primary/20 border-primary text-primary;
+    @apply border-primary text-primary;
+    background: linear-gradient(135deg, hsl(var(--primary) / 0.2), hsl(var(--accent) / 0.1));
     box-shadow: var(--shadow-glow);
+    transform: translateY(-2px);
   }
 
   .btn-control {
-    @apply px-6 py-3 rounded-lg font-medium transition-all duration-200;
+    @apply px-6 py-3 rounded-xl font-medium relative overflow-hidden;
     @apply bg-primary text-primary-foreground;
-    @apply hover:bg-primary/90 hover:scale-105;
-    @apply active:scale-95;
-    box-shadow: var(--shadow-glow);
+    transition: var(--transition-elastic);
+    box-shadow: var(--shadow-control);
+  }
+
+  .btn-control::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, hsl(var(--primary-foreground) / 0.2), transparent);
+    transition: var(--transition-smooth);
+  }
+
+  .btn-control:hover::before {
+    left: 100%;
+  }
+
+  .btn-control:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .btn-control:active {
+    transform: translateY(0) scale(0.98);
   }
 
   .btn-control.secondary {
     @apply bg-secondary text-secondary-foreground;
-    @apply hover:bg-secondary/90;
-    box-shadow: none;
+    box-shadow: var(--shadow-glass);
   }
 
-  /* Performance Metrics */
+  /* Enhanced Performance Metrics */
   .metric-card {
-    @apply glass-panel p-4 text-center;
+    @apply glass-panel p-6 text-center relative;
+    background: var(--gradient-metric);
+    transition: var(--transition-bounce);
+  }
+
+  .metric-card:hover {
+    transform: translateY(-4px) scale(1.02);
   }
 
   .metric-value {
-    @apply text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+    @apply text-3xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent;
+    background-size: 200% 100%;
+    animation: gradient-flow 3s ease-in-out infinite;
   }
 
   .metric-label {
-    @apply text-sm text-muted-foreground uppercase tracking-wide;
+    @apply text-sm text-muted-foreground uppercase tracking-wider font-medium;
+  }
+
+  /* Enhanced Title Styling */
+  .gradient-title {
+    @apply text-5xl font-black bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent;
+    background-size: 200% 100%;
+    animation: gradient-flow 4s ease-in-out infinite;
+    text-shadow: 0 0 30px hsl(var(--primary) / 0.3);
+  }
+
+  /* Algorithm Info Card */
+  .algo-info {
+    @apply glass-panel p-4 relative;
+    background: linear-gradient(135deg, hsl(var(--primary) / 0.1), hsl(var(--accent) / 0.05));
+    border: 1px solid hsl(var(--primary) / 0.2);
+  }
+
+  /* Custom Slider Styling */
+  .enhanced-slider {
+    @apply relative;
+  }
+
+  .enhanced-slider [data-radix-slider-track] {
+    @apply bg-secondary/50 h-2 rounded-full relative overflow-hidden;
+  }
+
+  .enhanced-slider [data-radix-slider-track]::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, hsl(var(--primary) / 0.1), hsl(var(--accent) / 0.1));
+    border-radius: inherit;
+  }
+
+  .enhanced-slider [data-radix-slider-range] {
+    @apply h-full rounded-full;
+    background: var(--gradient-primary);
+    box-shadow: 0 0 10px hsl(var(--primary) / 0.4);
+  }
+
+  .enhanced-slider [data-radix-slider-thumb] {
+    @apply w-5 h-5 rounded-full border-2 border-primary bg-background;
+    box-shadow: var(--shadow-glow);
+    transition: var(--transition-bounce);
+  }
+
+  .enhanced-slider [data-radix-slider-thumb]:hover {
+    transform: scale(1.2);
+    box-shadow: var(--shadow-hover);
   }
 }
