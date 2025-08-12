@@ -37,7 +37,7 @@ Live Demo ➡ [algo-canvas-dance.vercel.app](https://algo-canvas-dance.vercel.ap
 
 ### Installation
 
-```bash
+
 # Clone the repository
 git clone https://github.com/shristy-shahi/algo-canvas-dance.git
 cd algo-canvas-dance
@@ -48,7 +48,7 @@ npm install
 # Run locally
 npm run dev
 
-'''bash
+
 
 ## 🎮 How to Use
 
