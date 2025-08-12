@@ -34,7 +34,7 @@ Live Demo ➡ [algo-canvas-dance.vercel.app](https://algo-canvas-dance.vercel.ap
 ### Prerequisites
 - **Node.js** (LTS recommended)
 - **npm** or **yarn**
-
+```bash
 ### Installation
 
 
@@ -48,7 +48,7 @@ npm install
 # Run locally
 npm run dev
 
-
+```
 
 ## 🎮 How to Use
 
