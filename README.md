@@ -1,73 +1,104 @@
-# Welcome to your Lovable project
+# 🎨 Algo Canvas Dance
 
-## Project info
+An **interactive sorting algorithm visualizer** that turns data sorting into a mesmerizing dance of bars and colors.  
+Built with **React**, **TypeScript**, **Vite**, **Tailwind CSS**, and **shadcn-ui**, it delivers a buttery-smooth, responsive UI and fun, intuitive controls.
 
-**URL**: https://lovable.dev/projects/4f2c39a0-46c9-4086-9640-b79dd26cfcc0
+Live Demo ➡ [algo-canvas-dance.vercel.app](https://algo-canvas-dance.vercel.app/)
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## ✨ Highlights
 
-**Use Lovable**
+- **🎥 Real-time animations** — Watch bars swap, shift, and slide into place in fluid motion.
+- **🖱️ Intuitive controls** — Generate new arrays, select algorithms, and control speed with a single click.
+- **🎚 Adjustable speed & size** — Slow it down to study each step, or speed it up to watch the algorithm dance.
+- **📱 Fully responsive** — Works beautifully on desktop, tablet, and mobile.
+- **🖌 Clean modern UI** — Tailwind CSS + shadcn-ui components for a professional, accessible look.
+- **🧠 Educational** — Clearly see comparisons, swaps, and final ordering, perfect for students and algorithm enthusiasts.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/4f2c39a0-46c9-4086-9640-b79dd26cfcc0) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🛠 Tech Stack
 
-**Use your preferred IDE**
+- **Vite** — Lightning-fast development & build tool
+- **React (with Hooks)** — Component-driven architecture
+- **TypeScript** — Type safety for maintainable code
+- **Tailwind CSS** — Utility-first styling
+- **shadcn-ui** — Elegant prebuilt UI components
+- **Canvas API** — Smooth, performant rendering of animations
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+---
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 🚀 Getting Started
 
-Follow these steps:
+### Prerequisites
+- **Node.js** (LTS recommended)
+- **npm** or **yarn**
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### Installation
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+```bash
+# Clone the repository
+git clone https://github.com/shristy-shahi/algo-canvas-dance.git
+cd algo-canvas-dance
 
-# Step 3: Install the necessary dependencies.
-npm i
+# Install dependencies
+npm install
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Run locally
 npm run dev
-```
 
-**Edit a file directly in GitHub**
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
 
-**Use GitHub Codespaces**
+## 🎮 How to Use
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+1. **Open the app** in your browser.
+2. **Generate** a random array with the **"Generate Array"** button.
+3. **Choose an algorithm** from the dropdown menu (e.g., Bubble Sort, Selection Sort, etc.).
+4. **Adjust speed** with the slider to watch the algorithm step-by-step or at high speed.
+5. **Click Play/Pause** to start or stop the visualization anytime.
+6. **Reset** to try another algorithm or array size.
 
-## What technologies are used for this project?
+💡 *Pro Tip:* Lower the speed for a more “teaching mode” effect, or increase the array size to challenge the animation performance.
 
-This project is built with:
+---
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## 📸 Screenshots
 
-## How can I deploy this project?
+<img width="1897" height="1032" alt="image" src="https://github.com/user-attachments/assets/23fffb2e-6089-47d5-b272-ea55baff3d43" />
 
-Simply open [Lovable](https://lovable.dev/projects/4f2c39a0-46c9-4086-9640-b79dd26cfcc0) and click on Share -> Publish.
 
-## Can I connect a custom domain to my Lovable project?
+---
 
-Yes, you can!
+## 🤝 Contributing
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Contributions are welcome! You can:
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+- Add new sorting algorithms
+- Improve UI/UX
+- Fix bugs
+- Add features like comparisons count or step history
+
+**Steps to contribute:**
+1. Fork this repo
+2. Create a feature branch (`git checkout -b feature-name`)
+3. Commit your changes (`git commit -m "Description"`)
+4. Push to your branch (`git push origin feature-name`)
+5. Open a Pull Request
+
+---
+
+## 📜 License
+
+This project is licensed under the **MIT License** — free to use, modify, and distribute.
+
+---
+
+## 🙏 Acknowledgements
+
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [shadcn-ui](https://github.com/shadcn/ui)
+- Canvas rendering techniques for smooth animations
